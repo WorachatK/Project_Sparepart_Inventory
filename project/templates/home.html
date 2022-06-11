@@ -1,0 +1,161 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+
+
+  .bg {
+    background-color: #F0F8FF;
+    padding: 20px;
+    Margin-top: 50px;
+    border-radius: 20px;
+    float: 20px;
+
+
+    }
+
+   .table-container{
+    display:inline-grid;
+    background-color: #ffffff;
+
+    }
+
+  .table-item{
+    border: 1px solid #000000;
+    text-align: center;
+    padding : 10px;
+    }
+
+  .table-show{
+    margin-top: 20px;
+    background-color: #ffffff;
+  }
+
+
+</style>
+  <main>
+
+      <div class="b-example-divider"></div>
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href=""/></svg>
+          <span class="fs-4">Project</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="/" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'dashboard' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'inventory' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+              Import
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'product' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+              Export
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'analysis' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+              Analysis
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="container-fluid">
+      {% if test == 1 %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+          <h4 class="alert-heading">แจ้งเตือนสินค้า</h4>
+          <hr>
+          <table>
+            <tbody>
+            {% for p,s,t in zip %}
+            <tr>
+              <th scope="row">{{p.type}}</th>
+              <td>{{p.model}}</td>
+              <td>จำนวนคงเหลือ {{p.quantity}} ชิ้น</td>
+              <td>ควรสั่งขั้นต่ำ {{s}} ชิ้น</td>
+              <td>{{t}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+          <hr>
+          <table>
+            <tbody>
+            {% for a,t in alert %}
+            <tr>
+              <th scope="row">**** {{a.type}}</th>
+              <td>{{a.model}}</td>
+              <td>{{t}} ****</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endif %}
+
+        <div class="bg" align="center">
+          <div class="table-responsive">
+            <h4>รายการสั่งซื้อ</h4>
+
+            <div class="table-show">
+                      <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">ID Bill</th>
+                              <th scope="col">ชื่อร้าน</th>
+                              <th scope="col">สถานะ</th>
+                              <th scope="col">แก้ไขสถานะ</th>
+                            </tr>
+                          </thead>
+
+                        <form action="" method="post">
+                          <tbody>
+                          {% csrf_token %}
+
+                          {% for k,s in wait %}
+                            <tr id="table_body">
+                              <th scope="row">{{k}}</th>
+                              <td>{{s}}</td>
+                              <td>รอการขนส่ง</td>
+                              <td>
+                                <button type="submit" name="submit" value="{{k}}">รับสินค้า</button>
+                                <button type="submit" name="reset" value="{{k}}">ยกเลิกการสั่ง</button>
+                                <a href="{%url 'home' %}?importid={{k}}">แก้ไข</a>
+                              </td>
+                            </tr>
+                          {% endfor %}
+
+                          </tbody>
+                        </form>
+                      </table>
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+
+  </main>
+{% endblock %}

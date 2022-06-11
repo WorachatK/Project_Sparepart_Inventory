@@ -1,0 +1,33 @@
+<style>
+   .table-container{
+    display:inline-grid;
+    background-color: #ffffff;
+
+    }
+
+  .table-item{
+    border: 1px solid #000000;
+    text-align: center;
+    padding : 10px;
+    }
+
+
+</style>
+
+
+<body>
+  <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="table-container">
+          <div class="table-item">
+              <h4>เพิ่ม Sparepart</h4>
+              <br>
+              <table>
+                  {{form.as_table}}
+              </table><br>
+
+              <input type="submit">
+          </div>
+      </div>
+  </form>
+</body>

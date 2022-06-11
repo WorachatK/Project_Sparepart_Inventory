@@ -1,0 +1,173 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ใบเสร็จรับเงิน</title>
+<?php include("inc.css.php"); ?>
+
+
+<style type="text/css" media="print">
+#paper
+{
+	width: 21cm;
+	min-height: 25cm;
+	padding: 0;
+	position: relative;
+}
+
+</style>
+
+<style type="text/css" media="screen">
+#paper
+{
+	background: #FFF;
+	border: 1px solid #666;
+	margin: 20px auto;
+	width: 21cm;
+	min-height: 25cm;
+	padding: 50px;
+	position: relative;
+
+	/* CSS3 */
+
+	box-shadow: 0px 0px 5px #000;
+	-moz-box-shadow: 0px 0px 5px #000;
+	-webkit-box-shadow: 0px 0px 5px #000;
+}
+</style>
+
+<style type="text/css" >
+
+#paper textarea
+{
+	margin-bottom:25px;
+	width: 50%;
+}
+
+#paper table, #paper th, #paper td { border: none; }
+
+#paper table.border, #paper table.border th, #paper table.border td { border: 1px solid #666; }
+
+#paper th
+{
+	background: none;
+	color: #000
+}
+
+#paper hr { border-style: solid; }
+
+#signature
+{
+	bottom: 181px;
+	margin: 50px;
+	padding: 50px;
+	position: absolute;
+	right: 3px;
+	text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+<div id="paper">
+	<table width="100%">
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2"><h1 align="center">ใบเสร็จรับเงิน</h1></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">ร้านณรงค์ประดับยนต์</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">180/44 ถ.นนทบุรี1 ต.บางกระสอ อ.เมือง จ.นนทบุรี 11000</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">โทร 02-9690671</td>
+		</tr>
+
+		<tr>
+			<td>ประเภท <u>บิลเงินสด</u></td>
+			<td align="right">เลขที่ใบเสร็จรับเงิน {{ex_part2}}</td>
+		</tr>
+
+		<tr>
+			<td>ทะเบียนรถ : {{customer.license}}</td>
+			<td align="right">{{ex_part2}}</td>
+		</tr>
+		<tr>
+			<td>ชื่อ : {{customer.name}}<?php echo $data['address']; ?></td>
+		</tr>
+        <tr>
+        	<td>โทร :{{customer.number}}<?php echo $data['tel'] ?></td>
+        </tr>
+
+	</table>
+	<table width="100%" class="border">
+
+		<tr>
+			<td width="30" align="center">ลำดับ </td>
+			<td align="center">รายการ </td>
+			<td width="200" align="center">จำนวน</td>
+            <td width="200" align="center">ราคาต่อหน่วย( บาท )</td>
+		</tr>
+
+		{% for s in spare %}
+				<tr>
+					<td align="center">{{c}}</td>
+					<td>{{s.sparepart}} </td>
+					<td align="right">{{s.quantity}}</td>
+					<td align="right">{{s.price}}</td>
+				</tr>
+		{% endfor %}
+
+		<tr>
+			<td colspan="2" align="right">ค่าแรง</td>
+			<td align="right">.</td>
+            <td align="right">{{charges}}</td>
+		</tr>
+
+		<tr>
+			<td colspan="2" align="right">รวมราคาทั้งสิน</td>
+			<td align="center"></td>
+            <td align="right">{{price_total}}</td>
+		</tr>
+
+	</table>
+
+
+
+
+
+    <table width="30%" align="right" >
+        </br>
+       	<tr >
+    		<td align="center">............................................</td>
+    	</tr>
+
+        <tr >
+    		<td   align="center">( ............................................... ) </td>
+    	</tr>
+
+        <tr >
+    		<td  align="center">ผู้รับเงิน   </td>
+    	</tr>
+      </table>
+
+</div>
+<div align="center">
+	<a href="{%url 'dashboard' %}"><button type="button" style="height:50px; width: 100px;">HOME</button></a>
+</div>
+
+
+</script>
+
+</body>
+</html>
+

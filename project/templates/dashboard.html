@@ -1,0 +1,129 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+</head>
+
+<style>
+  .table {
+    background-color: #F0F8FF;
+    padding: 20px;
+    Margin-top: 50px;
+    border-radius: 20px;
+    float: 20px;
+    }
+
+  .table2 {
+    background-color: #FFCCCC;
+    padding: 20px;
+    Margin-top: 50px;
+    border-radius: 20px;
+    float: 20px;
+    width : 780px;
+    }
+
+  .select {
+  color :red;
+  }
+</style>
+<body>
+
+  <main>
+      <div class="b-example-divider"></div>
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href=""/></svg>
+          <span class="fs-4">Project</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="/" class="nav-link link-dark" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'dashboard' %}" class="nav-link active">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'inventory' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+              Import
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'product' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+              Export
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'analysis' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+              Analysis
+            </a>
+          </li>
+        </ul>
+        <hr>
+
+      </div>
+
+      <div class="container-fluid">
+        <div class="table">
+
+          <div class="table-responsive">
+
+            <h2>Spareparts</h2>
+
+            <table id="myTable">
+              <thead>
+                <tr>
+                  <th scope="col">รหัสอะไหล่</th>
+                  <th scope="col">ประเภทอะไหล่</th>
+                  <th scope="col">รุ่นอะไหล่</th>
+                  <th scope="col">จำนวน</th>
+                  <th scope="col">ราคาสินค้า</th>
+                  <th scope="col">คลัง</th>
+                </tr>
+              </thead>
+              <tbody>
+              {%for p in part%}
+                <tr>
+                  <td><a href="{%url 'dashboard' %}?partid={{p.id_code}}">{{p.id_code}}</a></td>
+                  <td>{{p.type}}</td>
+                  <td>{{p.model}}</td>
+                  <td>{{p.quantity}}</td>
+                  <td>{{p.Price_Per_Unit}}</td>
+                  <td>{{p.inventory}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table2">
+          <h3>คลังสินค้า</h3>
+          <hr>
+          <img src="https://sv1.picz.in.th/images/2022/04/06/8UZ5fW.jpg">
+        </div>
+      </div>
+
+
+  </main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+ </script>
+
+</body>
+{% endblock %}

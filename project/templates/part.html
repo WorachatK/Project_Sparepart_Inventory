@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+</head>
+
+<style>
+  .table {
+    background-color: #F0F8FF;
+    padding: 20px;
+    Margin-top: 50px;
+    border-radius: 20px;
+    float: 20px;
+    width: 600px;
+    height: auto;
+    }
+  .select {
+  color :red;
+  }
+
+  .word{
+  padding : 20px;
+  }
+
+  font{
+  }
+</style>
+<body>
+
+  <main>
+      <div class="b-example-divider"></div>
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href=""/></svg>
+          <span class="fs-4">Project</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="/" class="nav-link link-dark" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'dashboard' %}" class="nav-link active">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'inventory' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+              Import
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'product' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+              Export
+            </a>
+          </li>
+          <li>
+            <a href="{%url 'analysis' %}" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+              Analysis
+            </a>
+          </li>
+        </ul>
+        <hr>
+
+      </div>
+
+      <div class="container-fluid">
+          <div class="table">
+              {%for p in part%}
+              <h2>{{p.type}} : {{p.model}}</h2>
+              <p class="word">
+                  <font size="5"> ชนิดอะไหร่ : {{p.type}}</font></br>
+                  <font size="5"> รุ่น : {{p.model}}</font></br>
+                  <font size="5"> จำนวนคงเหลือ : {{p.quantity}}</font></br>
+                  <font size="5"> ราคาซื้อ : {{p.price}} บาท</font></br>
+                  <font size="5"> ราคาขาย : {{p.Price_Per_Unit}} บาท</font></br>
+              </p>
+              {% endfor %}
+          </div>
+      </div>
+
+  </main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+ </script>
+
+</body>
+{% endblock %}
